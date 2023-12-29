@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    /* background-color: #000; */
+    color: #fff;
+}
+
+.left-section {
+    width: 25vw;
+}
+
+/* .home {} */
+
+.right-section {
+    width: 75vw;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.navbar ul li {
+    list-style: none;
+    width: 26px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 18px;
+    cursor: pointer;
+}
+.navbar ul li:nth-child(2){
+    color: #b3b3b3;
+}
