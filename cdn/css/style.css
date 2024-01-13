@@ -98,7 +98,7 @@ main {
 
 /* song list */
 .songs-list {
-    height: 432px;
+    height: 420px;
     overflow-y: auto;
 }
 
