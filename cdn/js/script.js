@@ -46,6 +46,9 @@ async function getSongs(folder) {
       playMusic(e.querySelector(".song-info").firstElementChild.innerHTML)
     });
   });
+
+  
+  return songs;
 }
 
 const playMusic = (track, pause = false) => {
@@ -76,10 +79,59 @@ function secondsToMinutesSeconds(seconds) {
   return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+// Creating function displayAlbums(){}
+async function displayAlbums() {
+  let a = await fetch(`http://127.0.0.1:3000/cdn/songs`);
+  let response = await a.text();
+  let div = document.createElement('div');
+  div.innerHTML = response;
+  let anchors = div.getElementsByTagName("a");
+  let cardContainer = document.querySelector(".card-container");
+  let array = Array.from(anchors);
+  for (let index = 0; index < array.length; index++) {
+    const e = array[index];
+
+    if (e.href.includes("/songs/")) {
+      let folder = e.href.split("/").slice(-2)[0];
+
+      // Get the metadata of the folder
+      let a = await fetch(`http://127.0.0.1:3000/cdn/songs/${folder}/info.json`);
+      let response = await a.json();
+      console.log(response);
+      cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder=${folder} class="card rounded">
+        <img
+          class="rounded"
+          src="cdn/songs/${folder}/cover.jpg"
+          alt="song category 01"
+        />
+        <h2>${response.title}</h2>
+        <div class="card-para">
+          <p>${response.description}</p>
+        </div>
+        <div class="play-btn flex items-align justify-content">
+          <img src="cdn/icons/play-icon.svg" alt="play icon" />
+        </div>
+      </div>`
+    }
+  }
+
+  // Load the playlist whenever card is clicked!
+  Array.from(document.getElementsByClassName("card")).forEach(e => {
+    e.addEventListener("click", async item => {
+      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+      playMusic(songs[0], true);
+    });
+  });
+
+}
+
 async function main() {
   // Get the list of all the songs
   await getSongs("songs/ncs");
   playMusic(songs[0], true);
+
+  // Display all the albums on the page
+  displayAlbums();
 
   // Attach an event listener to play button
   play.addEventListener("click", () => {
@@ -122,14 +174,14 @@ async function main() {
   previous.addEventListener("click", () => {
     console.log("previous btn clicked!");
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
-      if ((index - 1) >= 0) {
-        playMusic(songs[index - 1]);
-      }
+    if ((index - 1) >= 0) {
+      playMusic(songs[index - 1]);
+    }
   })
 
   // Add event listener to next button
   next.addEventListener("click", () => {
-    console.log("nxt btn clicked!");
+    console.log("next btn clicked!");
     let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
     if ((index + 1) < songs.length) {
       playMusic(songs[index + 1]);
@@ -137,17 +189,26 @@ async function main() {
   })
 
   // Add event listener to volume
-  document.querySelector(".vol-range").getElementsByTagName("input")[0].addEventListener("change", (e)=>{
-    console.log("setting volume to ", e.target.value,"/100");
-    currentSong.volume = parseInt(e.target.value)/100;
+  let volumeSeekbar = document.querySelector(".vol-range").getElementsByTagName("input")[0];
+  volumeSeekbar.addEventListener("change", (e) => {
+    console.log("setting volume to ", e.target.value, "/100");
+    currentSong.volume = parseInt(e.target.value) / 100;
   })
 
-  // Load the playlist whenever card is clicked!
-  Array.from(document.getElementsByClassName("card")).forEach(e => {
-    e.addEventListener("click", async item => {
-      songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-    });
-  });
+  // Add event listener to the volume btn to mute
+  let img = document.querySelector(".volume").firstElementChild
+  img.addEventListener("click", (e) => {
+    if (e.target.src.includes("volume-icon.svg")) {
+      e.target.src = e.target.src.replace("volume-icon.svg", "volume-mute-icon.svg");
+      currentSong.volume = "0.0";
+      volumeSeekbar.value = "0";
+    }
+    else {
+      e.target.src = "cdn/icons/volume-icon.svg";
+      currentSong.volume = "0.10";
+      volumeSeekbar.value = "10";
+    }
+  })
 
 }
 

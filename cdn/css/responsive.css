@@ -52,7 +52,7 @@
 }
 
 /* @media querry for max-width:400px */
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .left-section {
         width: 398px;
     }
@@ -88,11 +88,11 @@
     }
 
     .card-container {
-        max-height: 75vh;
+        max-height: 62vh;
         justify-content: center;
         margin: 0;
         row-gap: 39px;
-        padding: 19px 0px
+        padding: 19px 0px 35px;
     }
 
     .card {
