@@ -210,6 +210,10 @@ async function main() {
     }
   })
 
+  document.addEventListener("contextmenu", (e)=>{
+    e.preventDefault();
+  }, false);
+
 }
 
 main();
