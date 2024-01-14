@@ -52,7 +52,7 @@ async function getSongs(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = `/cdn/${current_Folder}/` + track
+  currentSong.src = `/cdn/songs/${current_Folder}/` + track;
   if (!pause) {
     currentSong.play().then(function () {
       console.log("Audio is playing");
@@ -212,7 +212,7 @@ async function main() {
 
   document.addEventListener("contextmenu", (e)=>{
     e.preventDefault();
-  });
+  }, false);
 
 }
 
