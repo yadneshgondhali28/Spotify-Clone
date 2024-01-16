@@ -7,7 +7,7 @@ let current_Folder;
 // function to fetch songs
 async function getSongs(folder) {
   current_Folder = folder;
-  let a = await fetch(`/Spotify-Clone/tree/main/cdn/${folder}`);
+  let a = await fetch(`/cdn/${folder}`);
   let convertToTextFormat = await a.text();
 
   let div = document.createElement('div');
@@ -52,7 +52,7 @@ async function getSongs(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = `/Spotify-Clone/tree/main/cdn/${current_Folder}/` + track;
+  currentSong.src = `/cdn/${current_Folder}/` + track;
   if (!pause) {
     currentSong.play().then(function () {
       console.log("Audio is playing");
@@ -81,7 +81,7 @@ function secondsToMinutesSeconds(seconds) {
 
 // Creating function displayAlbums(){}
 async function displayAlbums() {
-  let a = await fetch(`/Spotify-Clone/tree/main/cdn/songs`);
+  let a = await fetch(`/cdn/songs`);
   let response = await a.text();
   let div = document.createElement('div');
   div.innerHTML = response;
@@ -95,7 +95,7 @@ async function displayAlbums() {
       let folder = e.href.split("/").slice(-2)[0];
 
       // Get the metadata of the folder
-      let a = await fetch(`/Spotify-Clone/tree/main/cdn/songs/${folder}/info.json`);
+      let a = await fetch(`/cdn/songs/${folder}/info.json`);
       let response = await a.json();
       console.log(response);
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder=${folder} class="card rounded">
@@ -127,7 +127,7 @@ async function displayAlbums() {
 
 async function main() {
   // Get the list of all the songs
-  await getSongs("/Spotify-Clone/tree/main/cdn/songs/ncs");
+  await getSongs("songs/ncs");
   playMusic(songs[0], true);
 
   // Display all the albums on the page
