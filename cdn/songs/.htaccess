@@ -1,5 +1,2 @@
 Options +Indexes
 IndexOptions FancyIndexing NameWidth=* DescriptionWidth=*
-
-Permissions-Policy: fullscreen=(self "https://example.com" "https://another.example.com"),
-    geolocation=*, camera=()
