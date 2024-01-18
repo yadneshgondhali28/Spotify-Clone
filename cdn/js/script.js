@@ -21,7 +21,7 @@ async function getSongs(folder) {
       songs.push(element.href.split(`/${folder}/`)[1]);
     }
   }
-
+  
   // Show all the songs in the playlist
   let songList = document.querySelector(".songs-list").getElementsByTagName("ul")[0];
   songList.innerHTML = "";
@@ -97,7 +97,6 @@ async function displayAlbums() {
       // Get the metadata of the folder
       let a = await fetch(`cdn/songs/${folder}/info.json`);
       let response = await a.json();
-      console.log(response);
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder=${folder} class="card rounded">
         <img
           class="rounded"
