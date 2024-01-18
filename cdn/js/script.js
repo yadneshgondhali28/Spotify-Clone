@@ -43,7 +43,15 @@ async function getSongs(folder) {
   // Attach an event listener to each song
   Array.from(document.querySelector(".songs-list").getElementsByTagName("li")).forEach(e => {
     e.children[2].addEventListener("click", () => {
-      playMusic(e.querySelector(".song-info").firstElementChild.innerHTML)
+      if (currentSong.paused) {
+        currentSong.play();
+        play.src = "cdn/icons/pause-icon.svg";
+        document.querySelector(".play-now").getElementsByTagName("img")[0].src = "cdn/icons/pause-icon.svg"
+      } else {
+        currentSong.pause();
+        play.src = "cdn/icons/playbar-play-icon.svg";
+        document.querySelector(".play-now").getElementsByTagName("img")[0].src = "cdn/icons/playbar-play-icon.svg"
+      }
     });
   });
 
@@ -92,6 +100,7 @@ async function displayAlbums() {
     const e = array[index];
 
     if (e.href.includes("/songs/") && !e.href.includes(".htaccess")) {
+
       let folder = e.href.split("/").slice(-2)[0];
 
       // Get the metadata of the folder
@@ -211,7 +220,7 @@ async function main() {
 
   document.addEventListener("contextmenu", (e)=>{
     e.preventDefault();
-  }, false);
+  });
 
 }
 
