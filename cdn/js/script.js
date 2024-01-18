@@ -69,7 +69,11 @@ const playMusic = (track, pause = false) => {
     });
     play.src = "cdn/icons/pause-icon.svg";
   }
-  document.querySelector(".play-bar-song-info").innerHTML = track;
+  if(track === undefined){
+    document.querySelector(".play-bar-song-info").innerHTML = "no songs available";
+  }else{
+    document.querySelector(".play-bar-song-info").innerHTML = track;
+  }
   document.querySelector(".song-duration").innerHTML = "00:00/00:00";
 }
 
