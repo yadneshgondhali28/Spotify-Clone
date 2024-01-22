@@ -220,8 +220,8 @@ main {
     max-height: 66vh;
     overflow-y: auto;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    align-content: flex-start;
     flex-wrap: wrap;
     gap: 24px;
     margin: 18px 18px;
