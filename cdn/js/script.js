@@ -21,7 +21,7 @@ async function getSongs(folder) {
       songs.push(element.href.split(`/${folder}/`)[1]);
     }
   }
-  
+
   // Show all the songs in the playlist
   let songList = document.querySelector(".songs-list").getElementsByTagName("ul")[0];
   songList.innerHTML = "";
@@ -55,7 +55,7 @@ async function getSongs(folder) {
     });
   });
 
-  
+
   return songs;
 }
 
@@ -69,9 +69,9 @@ const playMusic = (track, pause = false) => {
     });
     play.src = "cdn/icons/pause-icon.svg";
   }
-  if(track === undefined){
+  if (track === undefined) {
     document.querySelector(".play-bar-song-info").innerHTML = "no songs available";
-  }else{
+  } else {
     document.querySelector(".play-bar-song-info").innerHTML = track;
   }
   document.querySelector(".song-duration").innerHTML = "00:00/00:00";
@@ -222,10 +222,9 @@ async function main() {
     }
   })
 
-  document.addEventListener("contextmenu", (e)=>{
+  document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
   });
-
 }
 
 main();
