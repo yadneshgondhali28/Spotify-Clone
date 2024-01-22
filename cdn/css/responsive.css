@@ -52,7 +52,7 @@
 }
 
 /* @media querry for max-width:400px */
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .left-section {
         width: 398px;
     }

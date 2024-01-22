@@ -159,12 +159,17 @@ async function main() {
   // listen for timeupdate event
   currentSong.addEventListener("timeupdate", () => {
     document.querySelector(".song-duration").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`;
-    document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
-  })
+    document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.
+    duration) * 100 + "%";
+    document.querySelector(".color-seekbar").style.width = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+  });
 
   // Adding an event listener in seekbar
   document.querySelector(".seek-bar").addEventListener("click", (e) => {
+    console.log(e)
     let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+    console.log(e.offsetX)
+    console.log(e.target.getBoundingClientRect().width);
     document.querySelector(".circle").style.left = percent + "%";
     currentSong.currentTime = ((currentSong.duration) * percent) / 100;
   })

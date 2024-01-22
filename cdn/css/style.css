@@ -358,13 +358,20 @@ main {
     left: 28px;
 }
 
+.color-seekbar {
+    width: 0;
+    background-color: #FFFFFF;
+    height: 6px;
+    border-radius: 7px;
+}
+
 .circle {
     background-color: #fff;
     width: 18px;
     height: 18px;
     border-radius: 50%;
     position: relative;
-    bottom: 6px;
+    bottom: 12px;
     left: 0%;
     transition: left 0.5s;
 }
